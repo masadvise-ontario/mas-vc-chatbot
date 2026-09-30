@@ -556,7 +556,7 @@ Create dedicated API user with minimal permissions:
 
 - **CiviCRM API v4 Documentation**: https://docs.civicrm.org/dev/en/latest/api/v4/
 - **API Explorer**: https://www.masadvise.org/civicrm/api4
-- **MAS API v4 Protocol**: `/home/brian/buildkit/build/masdemo/web/wp-content/uploads/civicrm/ext/mascode/docs/API4-PATTERNS.md` — moved to mascode, its owner, when `mas-claude-context` was retired (klaus PRs #95/#97/#98). The old `protocols/api4.md` copy is byte-identical but sits in a directory that is being wound down.
+- **MAS API v4 Protocol**: `/home/brian/workspace/development/mascode/docs/API4-PATTERNS.md` (canonical: https://github.com/masadvise-ontario/mascode/blob/master/docs/API4-PATTERNS.md) — moved to mascode, its owner, when `mas-claude-context` was retired (klaus PRs #95/#97/#98). The old `protocols/api4.md` copy is byte-identical but sits in a directory that is being wound down.
 - **n8n Workflow** (historical): `/home/brian/workspace/workflows/personal/mas-vc-chatbot/workflows/civicrm-tool-handler.json` — **archive only.** n8n was decommissioned 2026-07-07; that repo is the historical JSON archive and the instance has zero active workflows. This project is code-first.
 
 ---
