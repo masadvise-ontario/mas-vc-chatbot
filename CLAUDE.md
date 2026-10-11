@@ -47,7 +47,7 @@ WordPress (masadvise.org/vcportal)
 
 CiviCRM queries run **unrestricted** (`checkPermissions:false` — trusted service account). `lib/civicrm.ts:getAuthContext()` resolves the VC's authorised contact/org IDs (clients on their own cases via the `"Case Coordinator is"` relation, plus those orgs and client reps); the per-tool redactors in `lib/tools.ts` NULL email/phone on out-of-scope rows. VC emails additionally pass through on consent (`MAS_Rep.Share_Email_with_VC_s`).
 
-> **CiviCRM client — no longer duplicated.** The `civiApi4()` transport in `lib/civicrm.ts` used to be mirrored by the sibling MCP server's TypeScript client (`src/civicrm/client.ts`, now only under that repo's `legacy-ts` tag). The live **`mas-civicrm-mcp-server`** is a PHP CiviCRM extension that calls API4 in-process, so it shares no HTTP transport or auth code with this app — this file is the only copy of the `X-Civi-Auth`/`X-Civi-Key` REST client, and there is nothing to keep in sync. The redaction/access-control layer above was never shared.
+> **CiviCRM client — no longer duplicated.** The `civiApi4()` transport in `lib/civicrm.ts` used to be mirrored by the sibling MCP server's TypeScript client (`src/civicrm/client.ts`, now only under that repo's `legacy-ts` tag). The live CiviCRM MCP server (since 2026-09-30 the `civicrm_mcp` extension plus mascode's `mcp/` tools) is PHP inside CiviCRM and calls API4 in-process, so it shares no HTTP transport or auth code with this app — this file is the only copy of the `X-Civi-Auth`/`X-Civi-Key` REST client, and there is nothing to keep in sync. The redaction/access-control layer above was never shared.
 
 ---
 
