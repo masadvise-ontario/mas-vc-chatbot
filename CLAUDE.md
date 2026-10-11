@@ -8,7 +8,7 @@
 
 **Project-specific context** (read at session start):
 1. `docs/PROJECT_SPEC.md` — original design spec (n8n-era; historical)
-2. `docs/CUTOVER.md` — the off-n8n cutover checklist (current)
+2. `docs/CUTOVER.md` — the off-n8n cutover record (completed 2026-07-07; a record, not a live checklist)
 3. BrianPKM `4-Archive/mas-vc-chatbot-decisions.md` — ADRs (ADR-012 = off-n8n)
 
 ---
@@ -47,13 +47,13 @@ WordPress (masadvise.org/vcportal)
 
 CiviCRM queries run **unrestricted** (`checkPermissions:false` — trusted service account). `lib/civicrm.ts:getAuthContext()` resolves the VC's authorised contact/org IDs (clients on their own cases via the `"Case Coordinator is"` relation, plus those orgs and client reps); the per-tool redactors in `lib/tools.ts` NULL email/phone on out-of-scope rows. VC emails additionally pass through on consent (`MAS_Rep.Share_Email_with_VC_s`).
 
-> **⚠️ Divergence watch — CiviCRM client is duplicated.** The `civiApi4()` transport in `lib/civicrm.ts` is mirrored by the sibling **`mas-civicrm-mcp-server/src/civicrm/client.ts`** (internal MAS Operations Assistant). Both hit the same live CiviCRM with the same wire protocol (endpoint, `X-Civi-Auth`/`X-Civi-Key` headers, form-urlencoded `params`, site-root `CIVICRM_BASE_URL`, `CiviError` handling). This copy is the deployed/battle-tested one — when you change the transport or auth here, check the MCP server for drift (its `CLAUDE.md` → "Divergence watch"). The redaction/access-control layer above is intentionally **not** shared (the MCP server's consumer is trusted, so it has none).
+> **CiviCRM client — no longer duplicated.** The `civiApi4()` transport in `lib/civicrm.ts` used to be mirrored by the sibling MCP server's TypeScript client (`src/civicrm/client.ts`, now only under that repo's `legacy-ts` tag). The live **`mas-civicrm-mcp-server`** is a PHP CiviCRM extension that calls API4 in-process, so it shares no HTTP transport or auth code with this app — this file is the only copy of the `X-Civi-Auth`/`X-Civi-Key` REST client, and there is nothing to keep in sync. The redaction/access-control layer above was never shared.
 
 ---
 
 ## Conventions
 
-- Chat model: **Haiku 4.5** by default (`CHAT_MODEL`), matching the live n8n stream. Provider via `LLM_PROVIDER` (`anthropic` default, `openrouter` alt).
+- Chat model: **Haiku 4.5** by default (`CHAT_MODEL`), matching the retired n8n stream. Provider via `LLM_PROVIDER` (`anthropic` default, `openrouter` alt).
 - Dev server: `pnpm dev` on port 3005.
 - SQL bindings are parameterized (the n8n KB sub string-interpolated; the port does not).
 - Pure logic (`lib/suggestions.ts`, `lib/prompt.ts`, redaction predicates) is unit-tested (`tests/unit.test.ts`).
@@ -83,4 +83,4 @@ Unpublished at the 2026-07-07 cutover (historical IDs kept for archive reference
 
 ---
 
-**Last Updated**: 2026-09-06
+**Last Updated**: 2026-10-11
